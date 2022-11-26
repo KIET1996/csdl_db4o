@@ -1,73 +1,94 @@
 package com.example.bt_dbo4o;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.example.bt_dbo4o.databinding.ActivityMainBinding;
+import com.example.bt_dbo4o.Activity.HomeActivity;
+import com.example.bt_dbo4o.Activity.RegisterActivity;
+import com.example.bt_dbo4o.Model.User;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-
+    Button b1;
+    EditText username , password;
+    TextView txt2, b2;
+    List<User> userList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.dang_nhap);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // try block to hide Action bar
+        try {
+            this.getSupportActionBar().hide();
+        }
+        // catch block to handle NullPointerException
+        catch (NullPointerException e) {
+        }
 
-        setSupportActionBar(binding.toolbar);
+        username = (EditText)findViewById(R.id.txtUsername);
+        password = (EditText)findViewById(R.id.txtPassword);
+        txt2 = (TextView) findViewById(R.id.lbLoi);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        b1 = (Button)findViewById(R.id.btnDangnhap);
+        b2 = (TextView)findViewById(R.id.btnDangky);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        String dbPath =  "/data/data/" + getPackageName() + "/Db4oDatabase.db4o";
+        DbHelper data =new DbHelper(dbPath);
+//        data.DBDrop(dbPath);
+        userList=data.getAllUser();
+        for (User u: userList) {
+            Log.e("List user in system", "User====>" + u.getUSERNAME() + "- TTT -" + u.getFULLNAME());
+            Log.e("List user in system", "User====>" + u.getNotes());
+        };
+        String u_username = data.checkLogin();
+        data.closeDB();
+
+        if (!u_username.isEmpty()){
+            Intent intent0 = new Intent(MainActivity.this, HomeActivity.class);
+            intent0.putExtra("u_username", u_username);
+            startActivity(intent0);
+        }
+
+        b1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                if(username.getText().toString().isEmpty() ||
+                        password.getText().toString().isEmpty()) {
+                        txt2.setText("Không được để trống các trường");
+                }else{
+                    String dbPath =  "/data/data/" + getPackageName() + "/Db4oDatabase.db4o";
+                    DbHelper data = new DbHelper(dbPath);
+                    String isLogin = data.login(username.getText().toString(), password.getText().toString());
+                    data.closeDB();
+
+                    if(isLogin.isEmpty()){
+                        txt2.setText("Đăng nhập không thành công bạn đã sai mật khẩu hoặc tài khoản");
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.putExtra("u_username", isLogin);
+                        startActivity(intent);
+                    }
+
+                }
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
 }

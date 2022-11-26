@@ -1,34 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <TextView
+        android:text="SAMPLE"
+        android:layout_width="match_parent"
+        android:id="@+id/txtSample"
+        android:layout_height="80dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/imgIcon"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_width="60dp" />
+
+        <TextView
+            android:text="Question"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/txtQuestion"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Bt_dbo4o.AppBarOverlay">
+        android:id="@+id/radioGroup1">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RadioButton
+            android:text="A"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Bt_dbo4o.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton1"
+            android:layout_weight="1" />
 
-    </android.support.design.widget.AppBarLayout>
+        <RadioButton
+            android:text="B"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton2"
+            android:layout_weight="1" />
 
-    <include layout="@layout/content_main" />
+        <RadioButton
+            android:text="C"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton3"
+            android:layout_weight="1" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+        <RadioButton
+            android:text="D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton4"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <Button
+        android:text="Chọn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:id="@+id/btnChoose" />
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
