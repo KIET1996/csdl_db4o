@@ -43,10 +43,10 @@ class NoteAdapter extends BaseAdapter {
 
         //Bind sữ liệu phần tử vào View
         Note note = (Note) getItem(i);
-        ((TextView) viewNote.findViewById(R.id.contTitle)).setText(note.TITLE);
-        ((TextView) viewNote.findViewById(R.id.contContent)).setText(note.CONTENT);
+        ((TextView) viewNote.findViewById(R.id.contTitle)).setText(note.getTITLE());
+        ((TextView) viewNote.findViewById(R.id.contContent)).setText(note.getCONTENT());
         DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss dd/mm/yyyy ");
-        String strDate = dateFormat.format(note.CREATEDATE);
+        String strDate = dateFormat.format(note.getCREATEDATE());
         ((TextView) viewNote.findViewById(R.id.lbNgay)).setText(strDate);
         return viewNote;
     }

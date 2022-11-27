@@ -2,10 +2,10 @@ package com.example.bt_dbo4o.Model;
 import java.util.Date;
 
 public class Note {
-    public int ID;
-    public String TITLE;
-    public String CONTENT;
-    public Date CREATEDATE;
+    private int ID;
+    private String TITLE;
+    private String CONTENT;
+    private Date CREATEDATE;
 
     public Note() {}
 

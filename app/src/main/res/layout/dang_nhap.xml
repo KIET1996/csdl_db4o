@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
                 android:text="SIGN IN"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/btnDangky"
@@ -92,7 +92,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Don't have an account?"
                 android:textAlignment="center"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 

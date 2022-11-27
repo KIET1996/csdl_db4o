@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
                 intent1.putExtra("e_id", String.valueOf(note.getID()));
                 intent1.putExtra("e_title", note.getTITLE());
                 intent1.putExtra("e_content", note.getCONTENT());
-                intent1.putExtra("e_date", note.CREATEDATE);
+                intent1.putExtra("e_date", note.getCREATEDATE());
                 startActivity(intent1);
             }
         });

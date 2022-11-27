@@ -80,7 +80,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/button"
                 android:text="DELETE"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/btnEdit"
@@ -89,7 +89,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/button"
                 android:text="SAVE"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 
